@@ -660,7 +660,8 @@ module zfp
   public :: zFORp_compress, &
             zFORp_decompress, &
             zFORp_write_header, &
-            zFORp_read_header
+            zFORp_read_header, &
+            zFORp_get_zfp_stream
 
 contains
 
@@ -1130,5 +1131,12 @@ contains
     integer (kind=8) :: num_bits_read
     num_bits_read = zfp_read_header(stream%object, field%object, int(mask, c_int))
   end function zFORp_read_header
+
+  function zFORp_get_zfp_stream(stream) result(zfp_stream_c_ptr) bind(c, name="zforp_get_zfp_stream")
+    implicit none
+    type(zFORp_stream), intent(in) :: stream
+    type(c_ptr) :: zfp_stream_c_ptr
+    zfp_stream_c_ptr = stream%object
+  end function zFORp_get_zfp_stream
 
 end module zfp
