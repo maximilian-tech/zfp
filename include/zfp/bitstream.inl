@@ -453,6 +453,19 @@ stream_open(void* buffer, size_t bytes)
   return s;
 }
 
+inline_ void
+stream_reset(bitstream* s, void* buffer, size_t bytes)
+{
+  if (s) {
+    s->begin = (bitstream_word*)buffer;
+    s->end = s->begin + bytes / sizeof(bitstream_word);
+#ifdef BIT_STREAM_STRIDED
+    stream_set_stride(s, 0, 0);
+#endif
+    stream_rewind(s);
+  }
+}
+
 /* close and deallocate bit stream */
 inline_ void
 stream_close(bitstream* s)
