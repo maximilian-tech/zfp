@@ -274,6 +274,8 @@ endif()
 # Add source code
 #------------------------------------------------------------------------------#
 include(CTest)
+set(BUILD_TESTING OFF)
+set(BUILD_TESTING_FULL OFF)
 if(BUILD_TESTING OR BUILD_TESTING_FULL)
   enable_testing()
 endif()
